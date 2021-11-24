@@ -5,8 +5,6 @@ plugins {
     id 'io.spring.dependency-management'
 }
 
-version '6.0.0'
-
 repositories {
     mavenCentral()
 }
@@ -18,8 +16,6 @@ dependencies {
 tasks.register('processFrontendResources', Copy) {
     // Directory containing the artifacts in the frontend project
     def frontendBuildDir = file("${project(':frontend').buildDir}")
-
-    System.out.println(frontendBuildDir)
 
     // Directory where the frontend artifacts must be copied to be packaged alltogether with the backend by the 'war'
     // plugin.
@@ -36,3 +32,8 @@ tasks.register('processFrontendResources', Copy) {
 tasks.named('processResources') {
     dependsOn tasks.named('processFrontendResources')
 }
+
+bootJar {
+    archiveFileName = 'application.jar'
+}
+
